@@ -1,14 +1,17 @@
-import { EventEmitter } from './helpers';
-
+import { EventEmitter, Store, DataModel } from './helpers';
 class Model extends EventEmitter {
-	constructor({ store, count, row, col }) {
+	public store: Store[];
+	public count: number;
+	public row: number;
+	public col: number;
+	constructor({ store, count, row, col }:DataModel) {
 		super();
 		this.store = store || [];
 		this.count = count || 0;
 		this.row = row || 0;
 		this.col = col || 0;
 	}
-	createData(row, col) {
+	createData(row: number, col: number): DataModel {
 		this.store = [];
 		this.row = row;
 		this.col = col;
@@ -28,10 +31,10 @@ class Model extends EventEmitter {
 		});
 		return { row: this.row, col: this.col, store: this.store };
 	}
-	getInput(id) {
+	getInput(id): Store {
 		return this.store.find(input => input.id == id);
 	}
-	updateClickInput(id) {
+	updateClickInput(id): Store {
 		const input = this.getInput(id);
 		input.disabled = !input.disabled;
 		this.emit('change', {
@@ -42,8 +45,8 @@ class Model extends EventEmitter {
 		});
 		return input;
 	}
-	updateBlurInput(id) {
-		const input = this.getInput(id);
+	updateBlurInput(id): Store {
+		const input: Store = this.getInput(id);
 		input.disabled = !input.disabled;
 		this.emit('change', {
 			store: this.store,
@@ -53,8 +56,8 @@ class Model extends EventEmitter {
 		});
 		return input;
 	}
-	updateKeyUpInput({ id, value }) {
-		const input = this.getInput(id);
+	updateKeyUpInput({ id, value }): Store {
+		const input: Store = this.getInput(id);
 		input.value = value;
 		this.emit('change', {
 			store: this.store,

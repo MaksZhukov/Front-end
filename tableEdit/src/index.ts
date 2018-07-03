@@ -1,11 +1,11 @@
 import Model from './js/model';
 import View from './js/view';
 import Controller from './js/controller';
-import { load, save } from './js/helpers';
+import { load, save, Store } from './js/helpers';
 
 const data = load();
 
-const model = new Model(data || {});
+const model = new Model(data || null);
 model.on('change', data => save(data));
 const view = new View();
 
