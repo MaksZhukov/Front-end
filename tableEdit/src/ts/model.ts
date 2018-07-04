@@ -31,10 +31,10 @@ class Model extends EventEmitter {
 		});
 		return { row: this.row, col: this.col, store: this.store };
 	}
-	getInput(id): Store {
-		return this.store.find(input => input.id == id);
+	getInput(id: number): Store {
+		return this.store.filter(input => input.id == id)[0];
 	}
-	updateClickInput(id): Store {
+	updateClickInput(id: number): Store {
 		const input = this.getInput(id);
 		input.disabled = !input.disabled;
 		this.emit('change', {
@@ -45,7 +45,7 @@ class Model extends EventEmitter {
 		});
 		return input;
 	}
-	updateBlurInput(id): Store {
+	updateBlurInput(id: number): Store {
 		const input: Store = this.getInput(id);
 		input.disabled = !input.disabled;
 		this.emit('change', {
@@ -56,7 +56,7 @@ class Model extends EventEmitter {
 		});
 		return input;
 	}
-	updateKeyUpInput({ id, value }): Store {
+	updateKeyUpInput({ id, value }: Store): Store {
 		const input: Store = this.getInput(id);
 		input.value = value;
 		this.emit('change', {

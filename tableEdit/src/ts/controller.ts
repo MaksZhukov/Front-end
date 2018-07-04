@@ -1,5 +1,6 @@
 import View from './view';
 import Model from './model';
+import {DataModel, Store} from './helpers';
 class Controller {
 	private view: View;
 	private model: Model;
@@ -14,19 +15,19 @@ class Controller {
 			view.createTable(model.row, model.col, model.store);
 		}
 	}
-	handlerClickButton({ row, col }) {
-		const data = this.model.createData(col, row);
+	handlerClickButton({ row, col }:DataModel) {
+		const data = this.model.createData(row, col);
 		this.view.createTable(data.row, data.col, data.store);
 	}
-	handlerClickInput({ id }) {
+	handlerClickInput({ id }:Store) {
 		const data = this.model.updateClickInput(id);
 		this.view.updateClickInput(data);
 	}
-	handlerBlurInput({ id }) {
+	handlerBlurInput({ id }:Store) {
 		const data = this.model.updateBlurInput(id);
 		this.view.updateBlurInput(data);
 	}
-	handlerKeyUpInput({ id, value }) {
+	handlerKeyUpInput({ id, value }:Store) {
 		const data = this.model.updateKeyUpInput({ id, value });
 		this.view.updateKeyUpInput(data);
 	}

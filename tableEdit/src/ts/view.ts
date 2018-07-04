@@ -9,10 +9,10 @@ class View extends EventEmitter {
 	constructor() {
 		super();
 		this.app = document.getElementById('app');
-		this.button = createElement('button', { innerText: 'Создать таблицу' });
+		this.button = createElement('button','Создать таблицу');
 		this.button.addEventListener('click', this.handlerClickButton.bind(this));
-		this.inputRow = <HTMLInputElement>createElement('input', { placeholder: 'Количество строк' });
-		this.inputCol = <HTMLInputElement>createElement('input', {
+		this.inputRow = <HTMLInputElement>createElement('input', null, { placeholder: 'Количество строк' });
+		this.inputCol = <HTMLInputElement>createElement('input',null, {
 			placeholder: 'Количество столбцов'
 		});
 		this.app.appendChild(this.button);
@@ -22,6 +22,9 @@ class View extends EventEmitter {
 	createTable(row: number, col: number, store: Store[]) {
 		this.inputRow.value = row.toString();
 		this.inputCol.value = col.toString();
+		if (this.table) {
+			this.table.remove();
+		}
 		this.table = <HTMLTableElement>createElement('table');
 		const tbody: HTMLElement = createElement('tbody');
 		let id: number = 0;
@@ -31,8 +34,8 @@ class View extends EventEmitter {
 			for (let j: number = 0; j < col; j++) {
 				let td = createElement('td');
 				let input:HTMLInputElement = <HTMLInputElement>createElement('input');
-				input.dataset.id = store.find(input => input.id === id).id.toString();
-				input.value = store.find(input => input.id === id).value;
+				input.dataset.id = store.filter(input => input.id === id)[0].id.toString();
+				input.value = store.filter(input => input.id === id)[0].value;
 				input.classList.add('disabled');
 				input.readOnly = true;
 				input.addEventListener('click', this.handlerClickInput.bind(this));
@@ -44,9 +47,6 @@ class View extends EventEmitter {
 			}
 			tbody.appendChild(tr);
 		}
-		if (this.table) {
-			this.table.remove();
-		}
 		this.table = this.table;
 		this.app.appendChild(this.table);
 	}
@@ -56,34 +56,34 @@ class View extends EventEmitter {
 			col: this.inputCol.value
 		});
 	}
-	handlerClickInput({ target }) {
+	handlerClickInput({ target }:{target:HTMLElement}) {
 		this.emit('click', { id: target.dataset.id });
 	}
-	handlerBlurInput({ target }) {
+	handlerBlurInput({ target }:{target:HTMLElement}) {
 		this.emit('blur', { id: target.dataset.id });
 	}
-	handlerKeyUpInput({ target }) {
+	handlerKeyUpInput({ target }:{target:HTMLInputElement}) {
 		this.emit('keyup', { id: target.dataset.id, value: target.value });
 	}
-	updateClickInput({ id, disabled }) {
+	updateClickInput({ id, disabled }:Store) {
 		const input: HTMLInputElement = this.getInputById(id);
 		if (disabled === false) {
 			input.classList.replace('disabled', 'enabled');
 			input.readOnly = disabled;
 		}
 	}
-	updateBlurInput({ id, disabled }) {
+	updateBlurInput({ id, disabled }:Store) {
 		const input: HTMLInputElement = this.getInputById(id);
 		if (disabled === true) {
 			input.classList.replace('enabled', 'disabled');
 			input.readOnly = disabled;
 		}
 	}
-	updateKeyUpInput({ id, value }) {
+	updateKeyUpInput({ id, value }:Store) {
 		const input: HTMLInputElement = this.getInputById(id);
 		input.value = value;
 	}
-	getInputById(id): HTMLInputElement {
+	getInputById(id:number): HTMLInputElement {
 		return document.querySelector(`[data-id="${id}"]`);
 	}
 }

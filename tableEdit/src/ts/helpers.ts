@@ -1,5 +1,5 @@
 class EventEmitter {
-	public events: object;
+	public events: Events;
 	constructor() {
 		this.events = {};
 	}
@@ -14,10 +14,11 @@ class EventEmitter {
 	}
 }
 
-function createElement(name: string, attributes?: object): HTMLElement{
+function createElement(name: string, innerText: string|null = null , attributes?: Attributes): HTMLElement {
 	let element: HTMLElement = document.createElement(name);
+	element.innerText = innerText;
 	for (let attr in attributes) {
-		element[attr] = attributes[attr];
+		element.setAttribute(attr,attributes[attr]);
 	}
 	return element;
 }
@@ -30,9 +31,9 @@ function load(): DataModel {
 }
 
 type Store = {
-	id: number;
-	value: string;
-	disabled: boolean;
+	id?: number;
+	value?: string;
+	disabled?: boolean;
 };
 type DataModel = {
 	store: Store[];
@@ -40,7 +41,12 @@ type DataModel = {
 	row: number;
 	col: number;
 };
+type Events = {
+	[type: string]: Array<Function>;
+};
 
-type Elements = HTMLElement|HTMLInputElement|HTMLTableElement;
+type Attributes = {
+	[type: string]: string;
+};
 
 export { EventEmitter, save, load, createElement, Store, DataModel };

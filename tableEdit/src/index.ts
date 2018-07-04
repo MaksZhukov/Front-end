@@ -1,12 +1,12 @@
-import Model from './js/model';
-import View from './js/view';
-import Controller from './js/controller';
-import { load, save, Store } from './js/helpers';
+import Model from './ts/model';
+import View from './ts/view';
+import Controller from './ts/controller';
+import { load, save, Store, DataModel } from './ts/helpers';
 
 const data = load();
 
 const model = new Model(data || null);
-model.on('change', data => save(data));
+model.on('change', (data:DataModel) => save(data));
 const view = new View();
 
 const controller = new Controller(view, model);
