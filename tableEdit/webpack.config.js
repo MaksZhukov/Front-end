@@ -18,7 +18,6 @@ module.exports = {
 	devtool: isDevelopment ? 'source-map' : 'none',
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
-		port: 9000,
 		compress: true,
 		open: true,
 		overlay: true

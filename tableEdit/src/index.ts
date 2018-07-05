@@ -1,11 +1,11 @@
 import Model from './ts/model';
 import View from './ts/view';
 import Controller from './ts/controller';
-import { load, save, Store, DataModel } from './ts/helpers';
+import { load, save, DataModel } from './ts/helpers';
 
 const data = load();
 
-const model = new Model(data || null);
+const model = new Model(data || {});
 model.on('change', (data:DataModel) => save(data));
 const view = new View();
 

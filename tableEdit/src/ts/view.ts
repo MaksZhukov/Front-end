@@ -52,18 +52,18 @@ class View extends EventEmitter {
 	}
 	handlerClickButton() {
 		this.emit('clickButton', {
-			row: this.inputRow.value,
-			col: this.inputCol.value
+			row: +this.inputRow.value,
+			col: +this.inputCol.value
 		});
 	}
 	handlerClickInput({ target }:{target:HTMLElement}) {
-		this.emit('click', { id: target.dataset.id });
+		this.emit('click', { id: +target.dataset.id });
 	}
 	handlerBlurInput({ target }:{target:HTMLElement}) {
-		this.emit('blur', { id: target.dataset.id });
+		this.emit('blur', { id: +target.dataset.id });
 	}
 	handlerKeyUpInput({ target }:{target:HTMLInputElement}) {
-		this.emit('keyup', { id: target.dataset.id, value: target.value });
+		this.emit('keyup', { id: +target.dataset.id, value: +target.value });
 	}
 	updateClickInput({ id, disabled }:Store) {
 		const input: HTMLInputElement = this.getInputById(id);

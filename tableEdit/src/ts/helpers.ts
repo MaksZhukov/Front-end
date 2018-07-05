@@ -36,10 +36,10 @@ type Store = {
 	disabled?: boolean;
 };
 type DataModel = {
-	store: Store[];
+	store?: Store[];
 	count?: number;
-	row: number;
-	col: number;
+	row?: number;
+	col?: number;
 };
 type Events = {
 	[type: string]: Array<Function>;
