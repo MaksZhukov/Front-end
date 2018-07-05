@@ -18,9 +18,10 @@ module.exports = {
 	devtool: isDevelopment ? 'source-map' : 'none',
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
+		inline: true,
 		compress: true,
 		open: true,
-		overlay: true
+		overlay: true,
 	},
 	resolve: {
 		extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js']

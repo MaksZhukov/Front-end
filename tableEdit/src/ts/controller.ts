@@ -2,9 +2,7 @@ import View from './view';
 import Model from './model';
 import {DataModel, Store} from './helpers';
 class Controller {
-	private view: View;
-	private model: Model;
-	constructor(view: View, model: Model) {
+	constructor(private view: View, private model: Model) {
 		this.view = view;
 		this.model = model;
 		view.on('clickButton', this.handlerClickButton.bind(this));

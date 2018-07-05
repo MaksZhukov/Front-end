@@ -4,7 +4,7 @@ class Model extends EventEmitter {
 	public count: number;
 	public row: number;
 	public col: number;
-	constructor({ store, count, row, col }:DataModel) {
+	constructor({store, count, row, col }:DataModel) {
 		super();
 		this.store = store || [];
 		this.count = count || 0;

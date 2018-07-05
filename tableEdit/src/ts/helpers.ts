@@ -1,7 +1,6 @@
 class EventEmitter {
-	public events: Events;
-	constructor() {
-		this.events = {};
+	constructor(public events:Events = {}) {
+
 	}
 	on(type: string, callback: Function): void {
 		this.events[type] = this.events[type] || [];
